@@ -3,35 +3,39 @@ services:
   backend:
     build:
       dockerfile: Dockerfile
-      context: /data/gitcontrol/banckend
+      # context: /data/gitcontrol/backend
+      context: ./backend
+      target: production
     container_name: gitcontrol-backend
     restart: unless-stopped
     #env_file:
     #  - ./.env
     ports:
-      - 4300:80
+      - 4381:80
     environment:
       DATABASE_URL: postgres://user:password@postgres:5432/db
       NODE_ENV: development
       PORT: 4300
     volumes:
-      - /data:/home/app/repositories
+      - ./repositories:/home/app/repositories
   #     - ./backend/dist:/home/node/app/src
   #     - ./backend/tmp/uploads:/home/node/app/tmp/uploads
-    command: ./node_modules/.bin/nodemon ./src/server.js
+    command: node ./dist/index.js
     networks:
       gitcontrol_network:
 
   frontend:
     image: nginx:stable-alpine
     container_name: gitcontrol-frontend
+    ports:
+      - 4380:80
     volumes:
       - ./frontend/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     #  - ./frontend/dist:/var/www/public_html
     command: [nginx-debug, '-g', 'daemon off;']
     networks:
       rom_network:
-        ipv4_address: 171.21.0.30
+        ipv4_address: 172.21.0.30
       gitcontrol_network:
 
   postgres:
@@ -50,5 +54,6 @@ networks:
   rom_network:
     external: true
   gitcontrol_network:
+    name: gitcontrol_network
     driver:
       bridge

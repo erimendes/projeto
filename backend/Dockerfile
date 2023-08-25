@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:current-alpine as base
 
 RUN mkdir -p /home/node/app
 # RUN mkdir -p /home/node/app/node_modules
@@ -12,7 +12,12 @@ USER node
 
 RUN npm install
 
-# COPY --chown=node:node ./src/ ./src/
+COPY --chown=node:node ./src/ ./src/
+
+FROM base as production
+
+ENV NODE_PATH=./build
+
+RUN npm run build
 
 EXPOSE 80
-
