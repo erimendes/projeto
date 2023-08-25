@@ -1,5 +1,5 @@
 
-import Model from '../model/gitrep';
+import Model from '../database';
 import { SchemaType } from '../Schema';
 
 export interface IRepository {

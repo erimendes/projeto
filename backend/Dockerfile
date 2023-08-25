@@ -1,4 +1,4 @@
-FROM node:current-alpine as base
+FROM node:latest as base
 
 RUN mkdir -p /home/node/app
 # RUN mkdir -p /home/node/app/node_modules
@@ -18,6 +18,9 @@ FROM base as production
 
 ENV NODE_PATH=./build
 
+RUN npm i pg
+
 RUN npm run build
 
 EXPOSE 80
+

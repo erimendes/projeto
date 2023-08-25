@@ -1,4 +1,4 @@
-import mongoose from '../database';
+import mongoose from '../mondodb';
 
 const gitrepSchema = new mongoose.Schema({
     repository: {

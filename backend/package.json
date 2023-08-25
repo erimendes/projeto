@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "tsx src/index.ts",
+    "build": "tsup src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Romerito M Silva",
@@ -22,6 +23,7 @@
     "@types/express": "^4.17.17",
     "@types/node": "^20.4.9",
     "dotenv": "^16.3.1",
+    "tsup": "^7.2.0",
     "tsx": "^3.12.3",
     "typescript": "^5.1.6"
   }
